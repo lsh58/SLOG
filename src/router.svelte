@@ -2,7 +2,7 @@
     import { Route } from 'tinro';
 
     import Articles from './pages/Articles.svelte';
-    import Login from './pages/Login/';
+    import Login from './pages/Login.svelte';
     import Register from './pages/Register.svelte';
 </script>
 
