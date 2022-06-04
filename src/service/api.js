@@ -33,13 +33,13 @@ const getApi = ({path='',} = {}) => {
     return send({method: 'GET', path});
 }
 const putApi = ({path='', data={}} = {}) => {
-    return send({method: 'PUT', path});
+    return send({method: 'PUT', path, data});
 }
 const postApi = ({path='', data={}} = {}) => {
-    return send({method: 'PSOT', path});
+    return send({method: 'POST', path, data});
 }
 const delApi = ({path='', data={}} = {}) => {
-    return send({method: 'DELETE', path});
+    return send({method: 'DELETE', path, data});
 }
 
 export {
