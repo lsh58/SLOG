@@ -81,10 +81,35 @@ function setArticles() {
         articlePageLock.set(false);
     }
 
+    const addArticle = async (content) => {
+        try {
+
+            const options = {
+                path: '/article',
+                data: {
+                    content
+                }
+            }
+            
+            const newArticle = await postApi(options);
+
+            update(datas => {
+                datas.articleList = [newArticle, ...datas.articleList];
+                return datas;
+            })
+
+            return;
+        }
+        catch(error){
+            throw error;
+        }
+    }
+
     return {
         subscribe,
         fetchArticles,
-        resetArticles
+        resetArticles,
+        addArticle,
     }
 }
 function setLoadingArticle() {
