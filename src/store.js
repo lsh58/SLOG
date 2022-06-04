@@ -2,10 +2,110 @@ import { writable, get } from "svelte/store";
 import {getApi, putApi, delApi, postApi} from "./service/api";
 import { router } from "tinro";
 
-function setCurrentArticlesPage() {}
-function setArticles() {}
-function setLoadingArticle() {}
-function setArticleContent() {}
+function setCurrentArticlesPage() {
+
+    const { subscribe, update, set } = writable(1);
+    
+    const resetPage = () => set(1);
+
+    const increPage = () => {
+        update( data => data = data + 1);
+        articles.fetchArticles();
+    }
+
+    return {
+        subscribe,
+        resetPage,
+        increPage
+    }
+}
+function setArticles() {
+
+    let initValues = {
+        articleList : [],
+        totalPage : 0,
+        menuPopup : '',
+        editMode : '',
+    }
+
+    let values = {...initValues}
+
+    const { subscribe, update, set } = writable(values);
+
+    const fetchArticles = async () => {
+
+        const currentPage = get(currentArticlesPage);
+
+        try {
+            let path = '/articles/${currentPage}';
+
+            const options = {
+                path
+            }
+
+            const getDatas = await getApi(options);
+
+            const newData = {
+                articleList: getDatas.articles,
+                totalPage: getDatas.totalPage
+            }
+
+            update(datas => {
+                const newArticles = [...datas.articleList, ...newData.articleList];
+
+                if(currentPage === 1){
+                    datas.articleList = newData.articleList;
+                    datas.totalPage = newData.totalPage;
+                }
+
+                datas.articleList = newArticles;
+                datas.totalPage = newData.totalPage
+                loadingArticles.turnOffLoading();
+
+                return datas
+            })
+        }
+        catch(error) {
+            throw error;
+        }
+    }
+
+    const resetArticles = () => {
+
+        let resetValue  = {...initValues}
+
+        set(resetValue);
+
+        currentArticlesPage.resetPage();
+
+        articlePageLock.set(false);
+    }
+
+    return {
+        subscribe,
+        fetchArticles,
+        resetArticles
+    }
+}
+function setLoadingArticle() {
+    const { subscribe, set } = writable(false);
+
+    const turnOnLoading = () => {
+        set(true);
+        articlePageLock.set(true);
+    }
+
+    const turnOffLoading = () => {
+        set(false);
+        articlePageLock.set(false)
+    }
+
+    return {
+        subscribe,
+        turnOnLoading,
+        turnOffLoading
+    }
+}
 function setArticleMode() {}
 function setComments() {}
 function setAuth() {
@@ -118,7 +218,7 @@ function setAuthToke() {
 export const currentArticlesPage = setCurrentArticlesPage();
 export const articles = setArticles();
 export const loadingArticles = setLoadingArticle();
-export const articlePageLock = setArticleContent();
+export const articlePageLock = writable(false);
 export const articleContent = setCurrentArticlesPage();
 export const articleMode = setArticleMode();
 export const comments = setComments();
