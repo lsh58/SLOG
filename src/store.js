@@ -119,6 +119,56 @@ function setArticles() {
         })
     }
 
+    const openEditModeArticle = (_id) => {
+        articles.closeMenuPopup();
+
+        update(datas => {
+            datas.editMode = _id;
+            return datas;
+        })
+    }
+
+    const closeEditModeArticle = () => {
+        update(datas => {
+            datas.editMode = '';
+            return datas;
+        })
+    }
+
+    const updateArticle = async (article) => {
+        try {
+            const updateData = {
+                _id : article._id,
+                content: article.content,
+            }
+
+            const options = {
+                path : '/article',
+                data: updateData
+            }
+
+            const updateArticle = await putApi(options);
+
+            update(datas => {
+                const setDatas = datas.articleList.map(article => {
+                    if(article._id === updateArticle._id) {
+                        article = updateArticle;
+                    }
+                    return article
+                });
+
+                datas.articleList = setDatas;
+                return datas;
+            })
+
+            articles.closeEditModeArticle();
+            alert('수정 완료');
+        }
+        catch(error) {
+            alert('수정 중에 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+    }
+
     return {
         subscribe,
         fetchArticles,
@@ -126,6 +176,9 @@ function setArticles() {
         addArticle,
         openMenuPopup,
         closeMenuPopup,
+        openEditModeArticle,
+        closeEditModeArticle,
+        updateArticle
     }
 }
 function setLoadingArticle() {
