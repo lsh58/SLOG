@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { articles } from '../store';
 
   let values = {

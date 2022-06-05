@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import AuthHeader from '../components/AuthHeader.svelte';
     import AuthRegister from '../components/AuthRegister.svelte';
 </script>

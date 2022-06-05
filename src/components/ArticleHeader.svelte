@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { router } from 'tinro';
   import { authToken } from '../store';
 

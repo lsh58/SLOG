@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { router, meta } from 'tinro';
 
   const route = meta();

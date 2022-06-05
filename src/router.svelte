@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { Route } from 'tinro';
 
     import Articles from './pages/Articles.svelte';

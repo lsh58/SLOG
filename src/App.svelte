@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Router from './router.svelte';
 	import { auth, authToken } from './store';
 

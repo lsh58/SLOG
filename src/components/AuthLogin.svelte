@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { authToken } from '../store';
 
   let values = {
