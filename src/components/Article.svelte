@@ -26,6 +26,14 @@
   const onEditModeArticle = (_id) => {
     articles.openEditModeArticle(_id);
   }
+
+  const onDeleteArticle = (_id) => {
+    if(confirm('삭제하시겠습니까?')) {
+      articles.deleteArticle(_id);
+    }else {
+      return
+    }
+  }
 </script>
 
 <!-- start article box-->
@@ -68,7 +76,7 @@
         </button>
         <ul class="list-menu is-show" class:is-show={isViewMenu}>
           <li class="onCursur" on:click={() => onEditModeArticle(article._id)}>Edit</li>
-          <li class="onCursur">Delete</li>
+          <li class="onCursur" on:click={() => onDeleteArticle(article._id)}>Delete</li>
         </ul>
       {/if}
   </div>

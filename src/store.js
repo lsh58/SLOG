@@ -169,6 +169,25 @@ function setArticles() {
         }
     }
 
+    const deleteArticle = async (_id) => {
+        try {
+            const options = {
+                path: '/article/' + _id,
+            }
+
+            await delApi(options);
+
+            update(datas => {
+                const setDatas = datas.articleList.filter(article => article._id !== _id);
+                datas.articleList = setDatas;
+                return datas;
+            });
+        }
+        catch(error){
+            alert('삭제 중 오류가 발생했습니다.');
+        }
+    }
+
     return {
         subscribe,
         fetchArticles,
@@ -178,7 +197,8 @@ function setArticles() {
         closeMenuPopup,
         openEditModeArticle,
         closeEditModeArticle,
-        updateArticle
+        updateArticle,
+        deleteArticle,
     }
 }
 function setLoadingArticle() {
