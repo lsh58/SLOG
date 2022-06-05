@@ -1,5 +1,26 @@
 <script>
+  import { articles, auth } from '../store';
+
   export let article;
+
+  let isViewMenu = false;
+
+  $: {
+    if($articles.menuPopup === article._id) {
+      isViewMenu = true;
+    }
+    else { 
+      isViewMenu = false;
+    }
+  }
+
+  const onToggleMenuPopup = (_id) => {
+    if (isViewMenu) {
+      articles.closeMenuPopup();
+    } else {
+      articles.openMenuPopup(_id);
+    }
+  }
 </script>
 
 <!-- start article box-->
@@ -31,13 +52,15 @@
 
       </div>
     </div>
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-      <!-- <i class="material-icons">more_vert</i> -->
-      <i class='bx bx-dots-vertical-rounded material-icons'></i>
-    </button>
-    <ul class="list-menu is-show">
-      <li class="onCursur">Edit</li>
-      <li class="onCursur">Delete</li>
-    </ul>
+    {#if article.userId === $auth._id}
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" on:click={()=> onToggleMenuPopup(article._id)}>
+        <!-- <i class="material-icons">more_vert</i> -->
+        <i class='bx bx-dots-vertical-rounded material-icons'></i>
+      </button>
+      <ul class="list-menu is-show" class:is-show={isViewMenu}>
+        <li class="onCursur">Edit</li>
+        <li class="onCursur">Delete</li>
+      </ul>
+    {/if}
 </div>
 <!-- end article box-->
