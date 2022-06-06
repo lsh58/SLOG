@@ -40,7 +40,12 @@ export default {
 	},
 	plugins: [
 		svelte({
-			preprocess: sveltePreprocess({ sourceMap: !production }),
+			preprocess: sveltePreprocess({ sourceMap: !production,
+                scss: {
+                    // 전역 scss 파일 등록, scss가 사용되는 곳에만 적용
+                    prependData: ['@import "./src/styles/main.scss";'],
+                }, 
+			}),
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
