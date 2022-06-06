@@ -7,6 +7,8 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import scss from 'rollup-plugin-scss';
+import postcss from 'postcss';
+import autoprefixer from 'autoprefixer';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -45,7 +47,10 @@ export default {
                 scss: {
                     // 전역 scss 파일 등록, scss가 사용되는 곳에만 적용
                     prependData: ['@import "./src/styles/main.scss";'],
-                }, 
+                },
+				postcss: {
+					plugins: [autoprefixer()]
+				}
 			}),
 			compilerOptions: {
 				// enable run-time checks when not in production
@@ -56,7 +61,10 @@ export default {
 		// a separate file - better for performance
 		css({ output: 'bundle.css' }),
 		scss({
-		  output: 'public/build/assets.css'
+		  output: 'public/build/assets.css',
+		  processor: css => postcss([autoprefixer])
+			.process(css)
+			.then(result => result.css)
 		}),
 
 		// If you have external dependencies installed from
