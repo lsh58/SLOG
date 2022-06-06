@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { articles, currentArticlesPage, loadingArticles, articlePageLock } from '../store';
+    import { articles, currentArticlesPage, loadingArticles, articlePageLock } from '@/store';
     import Article from './Article.svelte'
 
     let component;

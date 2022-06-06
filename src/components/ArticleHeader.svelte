@@ -1,6 +1,6 @@
 <script lang="ts">
   import { router } from 'tinro';
-  import { authToken } from '../store';
+  import { authToken } from '@/store';
 
   const goLogin = () => router.goto('/login');
   const onLogout = () => authToken.logout();

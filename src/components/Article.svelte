@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { articles, auth } from '../store';
+  import { articles, auth } from '@/store';
   import ArticleEditForm from './ArticleEditForm.svelte'
 
   export let article;

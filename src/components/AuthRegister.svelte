@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { auth } from '../store';
+  import { auth } from '@/store';
 
   let values = {
     formEmail: '',

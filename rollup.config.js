@@ -9,6 +9,8 @@ import css from 'rollup-plugin-css-only';
 import scss from 'rollup-plugin-scss';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
+import alias from '@rollup/plugin-alias';
+import path from 'path';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -65,6 +67,11 @@ export default {
 		  processor: css => postcss([autoprefixer])
 			.process(css)
 			.then(result => result.css)
+		}),
+		alias({
+			entries: [
+			  { find: '@', replacement: path.resolve(__dirname, 'src') }
+			]
 		}),
 
 		// If you have external dependencies installed from

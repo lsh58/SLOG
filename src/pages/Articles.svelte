@@ -1,8 +1,8 @@
 <script lang="ts">
-    import ArticleHeader from '../components/ArticleHeader.svelte';
-    import ArticleList from '../components/ArticleList.svelte';
-    import ArticleAddForm from '../components/ArticleAddForm.svelte';
-    import { authToken } from '../store';
+    import ArticleHeader from '@/components/ArticleHeader.svelte';
+    import ArticleList from '@/components/ArticleList.svelte';
+    import ArticleAddForm from '@/components/ArticleAddForm.svelte';
+    import { authToken } from '@/store';
 </script>
 
 <!-- start svelte-demo -->

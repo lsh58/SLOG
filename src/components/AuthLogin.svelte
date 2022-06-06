@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { authToken } from '../store';
+  import { authToken } from '@/store';
 
   let values = {
     formEmail: '',

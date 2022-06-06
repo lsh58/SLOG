@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { articles } from '../store';
+  import { articles } from '@/store';
 
   let values = {
     formContent: ''
